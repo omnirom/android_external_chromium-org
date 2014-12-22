@@ -209,6 +209,8 @@ class JniParams(object):
   @staticmethod
   def ParseJavaPSignature(signature_line):
     prefix = 'Signature: '
+    # JavaP 8 uses "descriptor" instead of "Signature"
+    signature_line = string.replace(signature_line, 'descriptor: ', 'Signature: ')
     return '"%s"' % signature_line[signature_line.index(prefix) + len(prefix):]
 
   @staticmethod
