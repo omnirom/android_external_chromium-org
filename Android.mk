@@ -66,7 +66,13 @@ endif
 endif
 
 # Include the appropriate version of each of the makefiles.
+
+ifeq ($(TARGET_HAVE_PREBUILT_WEBVIEWCHROMIUM),yes)
+# If we have PREBUILT_WEBVIEWCHROMIUM, than uses appropriate makefile.
+include $(GYP_MAKEFILE_STEMS).pre.mk
+else
 include $(addsuffix .$(HOST_OS)-$(TARGET_ARCH).mk,$(GYP_MAKEFILE_STEMS))
+endif
 
 endif  # End primary architecture handling.
 
@@ -93,6 +99,12 @@ endif
 endif
 
 # Include the appropriate version of each of the makefiles.
+
+ifeq ($(TARGET_HAVE_PREBUILT_WEBVIEWCHROMIUM),yes)
+# If we have PREBUILT_WEBVIEWCHROMIUM, than uses appropriate makefile.
+include $(GYP_MAKEFILE_STEMS).pre2.mk
+else
 include $(addsuffix .$(HOST_OS)-$(TARGET_2ND_ARCH).mk,$(GYP_MAKEFILE_STEMS))
+endif
 
 endif  # End secondary architecture handling.
