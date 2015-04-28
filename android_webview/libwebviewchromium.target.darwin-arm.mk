@@ -9,6 +9,8 @@ LOCAL_MODULE_TARGET_ARCH := $(TARGET_$(GYP_VAR_PREFIX)ARCH)
 gyp_intermediate_dir := $(call local-intermediates-dir,,$(GYP_VAR_PREFIX))
 gyp_shared_intermediate_dir := $(call intermediates-dir-for,GYP,shared,,,$(GYP_VAR_PREFIX))
 
+ifneq ($(TARGET_HAVE_PREBUILT_WEBVIEWCHROMIUM),yes)
+
 # Make sure our deps are built first.
 GYP_TARGET_DEPENDENCIES := \
 	$(call intermediates-dir-for,STATIC_LIBRARIES,android_webview_android_webview_common_gyp,,,$(GYP_VAR_PREFIX))/android_webview_android_webview_common_gyp.a \
@@ -382,6 +384,8 @@ GYP_GENERATED_OUTPUTS :=
 # Make sure our deps and generated files are built first.
 LOCAL_ADDITIONAL_DEPENDENCIES := $(GYP_TARGET_DEPENDENCIES) $(GYP_GENERATED_OUTPUTS)
 
+endif
+
 LOCAL_CPP_EXTENSION := .cc
 LOCAL_GENERATED_SOURCES :=
 
@@ -664,6 +668,8 @@ LOCAL_LDFLAGS_Release := \
 
 LOCAL_LDFLAGS := $(LOCAL_LDFLAGS_$(GYP_CONFIGURATION))
 
+ifneq ($(TARGET_HAVE_PREBUILT_WEBVIEWCHROMIUM),yes)
+
 LOCAL_STATIC_LIBRARIES := \
 	cpufeatures \
 	android_webview_android_webview_common_gyp \
@@ -891,6 +897,8 @@ LOCAL_STATIC_LIBRARIES := \
 	components_visitedlink_common_gyp \
 	components_visitedlink_renderer_gyp \
 	content_content_app_both_gyp
+
+endif
 
 # Enable grouping to fix circular references
 LOCAL_GROUP_STATIC_LIBRARIES := true
